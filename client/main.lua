@@ -216,7 +216,12 @@ local function handleInVehicle()
             local zoomValue = 0
             if lockedOnVehicle then
                 if DoesEntityExist(lockedOnVehicle) then
-
+                    if getVehicleInView(cam) ~= lockedOnVehicle then
+                        unlockCam(cam)
+                        SendNUIMessage({
+                            type = 'disablescan',
+                        })
+                    end
                     PointCamAtEntity(cam, lockedOnVehicle, 0.0, 0.0, 0.0, true)
                     if IsControlJustPressed(0, toggleLockOn) then
                         cam = unlockCam(cam)
